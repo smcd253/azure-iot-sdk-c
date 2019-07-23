@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h> // for msg parsing
+#include <wiringPi.h> // for driving LED
 
 #include "iothub.h"
 #include "iothub_device_client_ll.h"
@@ -14,6 +16,9 @@
 #include "iothub_message.h"
 #include "azure_c_shared_utility/threadapi.h"
 #include "azure_c_shared_utility/shared_util_options.h"
+
+// LED stuff
+#define LED 0 //gpio17
 
 // The protocol you wish to use should be uncommented
 //
@@ -89,9 +94,17 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT receive_msg_callback(IOTHUB_MESSAGE_HAND
         {
             (void)printf("Failure retrieving byte array message\r\n");
         }
-        else
+        else // do work with message
         {
             (void)printf("Received String Message\r\nMessage ID: %s\r\n Correlation ID: %s\r\n Data: <<<%s>>>\r\n", messageId, correlationId, string_msg);
+            if(strcmp(string_msg, "ON") == 0)
+            {
+                digitalWrite(LED, HIGH);
+            }
+            else
+            {
+                digitalWrite(LED, LOW);
+            }
         }
     }
     const char* property_value = "property_value";
@@ -110,6 +123,11 @@ int main(void)
 {
     IOTHUB_CLIENT_TRANSPORT_PROVIDER protocol;
     size_t messages_count = 0;
+
+    // LED stuff
+    wiringPiSetup();
+    pinMode(LED, OUTPUT);
+    digitalWrite(LED, LOW);
 
     // Select the Protocol to use with the connection
 #ifdef SAMPLE_MQTT
