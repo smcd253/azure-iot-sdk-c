@@ -84,7 +84,7 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT receive_msg_callback(IOTHUB_MESSAGE_HAND
         }
         else
         {
-            char* msg[sizeof(buff_msg)];
+            char msg[sizeof(buff_msg)];
             sscanf(msg, "%.*s", buff_msg);
             (void)printf("Received Binary message\r\nMessage ID: %s\r\n Correlation ID: %s\r\n Data: <<<%.*s>>> & Size=%d\r\n", messageId, correlationId, (int)buff_len, buff_msg, (int)buff_len);
 
