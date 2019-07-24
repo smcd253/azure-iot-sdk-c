@@ -48,6 +48,44 @@ and removing calls to _DoWork will yield the same results. */
     #include "iothubtransporthttp.h"
 #endif // SAMPLE_HTTP
 
+// image processing
+// static int read_image(unsigned char* buffer, size_t file_len, const char* file_path)
+// {
+//     FILE *file;
+
+//     //Open file
+//     file = fopen(file_path, "rb");
+//     if (!file)
+//     {
+//         (void)printf(stderr, "Unable to open file %s\n", file_path);
+//         return;
+//     }
+
+//     //Get file length
+//     fseek(file, 0, SEEK_END);
+//     fileLen=ftell(file);
+//     fseek(file, 0, SEEK_SET);
+
+//     //Allocate memory
+//     buffer=(char *)malloc(fileLen);
+//     if (!buffer)
+//     {
+//         (void)printf(stderr, "Memory error!"); fclose(file);
+//         return 1;
+//     }
+
+//     fread(buffer,fileLen,sizeof(unsigned char),file);
+//     fclose(file);
+
+//     int i=0;
+
+//     while (i < fileLen){
+//         (void)printf("%02X ",((unsigned char)buffer[i]);
+//         i++;
+//         if( ! (i % 16) ) printf( "\n" );
+//     }
+
+// }
 
 /* Paste in the your iothub connection string  */
 static const char* connectionString = "[device connection string]";
